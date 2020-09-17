@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.2
+
+### Docs
+
+* update readme.
+
 ## 1.0.1
 
 ### Bug Fixes
