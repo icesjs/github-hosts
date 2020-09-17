@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 'use strict'
 const chalk = require('chalk')
 
@@ -20,25 +21,15 @@ function checkNodeVersion() {
 // 如果node版本过低，依赖的包会抛异常
 checkNodeVersion()
 
-const fs = require('fs')
 const update = require('./lib/update')
-const { clear } = require('./lib/hosts')
+const { clear, isAccessible } = require('./lib/hosts')
 const { flush: flushDNSService } = require('./lib/dns')
-const { DEFAULT_HOSTS, confirm, logger } = require('./lib/utils')
-
-// 检查文件读写权限
-function checkPermission() {
-  return new Promise((resolve) => {
-    fs.access(DEFAULT_HOSTS, fs.constants.R_OK | fs.constants.W_OK, (err) => {
-      resolve(!err)
-    })
-  })
-}
+const { confirm, logger } = require('./lib/utils')
 
 // 运行主逻辑
 async function run({ c }) {
   // 检查文件读写权限
-  const hasPerm = await checkPermission()
+  const hasPerm = await isAccessible()
   if (c) {
     // 执行清除操作
     // 必须要有权限
@@ -98,13 +89,7 @@ if (argv.h) {
 } else {
   // 执行脚本
   run(argv)
-    .then((msg = 'Good bye!') => {
-      logger.info(msg)
-    })
-    .catch((err) => {
-      logger.error(err instanceof Error ? err.message : err)
-    })
-    .then(() => {
-      console.log('')
-    })
+    .then((msg = 'Good bye!') => logger.info(msg))
+    .catch((err) => logger.error(err instanceof Error ? err.message : err))
+    .then(() => console.log(''))
 }

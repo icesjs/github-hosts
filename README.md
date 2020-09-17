@@ -33,7 +33,7 @@ You must run the command as admin for modify the hosts file.
 > sudo github-hosts -c
 ```
 
-If you use Windows OS, you could use the "Run As Administrator" item of context menu for cmd to get admin permission.
+If you are using Windows OS, you could use the "Run As Administrator" item of context menu for cmd to get admin permission.
 
 
 
