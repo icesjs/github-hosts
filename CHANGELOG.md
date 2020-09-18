@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.0
+
+### Features
+
+* support customize domains data by remote url.
+
 ## 1.0.3
 
 ### Chores

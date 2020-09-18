@@ -28,9 +28,10 @@ const update = require('./lib/update')
 const { clear, isAccessible } = require('./lib/hosts')
 const { flush: flushDNSService } = require('./lib/dns')
 const { confirm, logger } = require('./lib/utils')
+const { downloadDomainsData } = require('./lib/domains')
 
 // 运行主逻辑
-async function run({ c }) {
+async function run({ c, u }) {
   // 检查文件读写权限
   const hasPerm = await isAccessible()
   if (c) {
@@ -40,7 +41,7 @@ async function run({ c }) {
     if (!hasPerm) {
       throw 'Administrator permission required to modify the hosts file.\n  Please run as administrator again.'
     }
-    await clear()
+    await clear(await downloadDomainsData(u))
     await flushDNSService().catch(() => {
       logger.warn('Maybe you need to restart your computer.\n')
     })
@@ -63,7 +64,7 @@ async function run({ c }) {
     if (doUpdate) {
       // 如果没有权限，只拷贝hosts内容到剪贴板
       // 如果有权限，则直接更新hosts文件
-      return await update(hasPerm)
+      return await update(hasPerm, await downloadDomainsData(u))
     }
     console.log('')
   }
@@ -87,6 +88,11 @@ const yargs = require('yargs')
     type: 'boolean',
     default: false,
     describe: 'Clear the hosts of GitHub',
+  })
+  .option('data-url', {
+    alias: 'u',
+    type: 'string',
+    describe: 'Remote url for domains data',
   })
 
 //

@@ -42,6 +42,17 @@ You must run the command as admin for modify the hosts file.
 > sudo npx github-hosts -c
 ```
 
+Since version 1.1.0, this tool will be download data from remote to keep domains up to date.
+You can also use the '-u' argument to define an url which contains a string array json data to replace the defaults.
+
+```bash
+# customize the domains data by remote url
+> sudo github-hosts -u "https://some.json.data/string-array.json"
+
+# or run without install
+> sudo npx github-hosts -u "https://some.json.data/string-array.json"
+```
+
 If you are using Windows OS, you could use the "Run As Administrator" item of context menu for cmd to get admin permission.
 
 
