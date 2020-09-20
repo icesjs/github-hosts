@@ -1,6 +1,6 @@
 # github-hosts
 
-*A simple tool of command line to query and set hosts of GitHub.*
+*Simple command line utility for querying and updating hosts of GitHub.*
 
 ## Install
 

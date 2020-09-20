@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.1
+
+### Bug Fixes
+
+* fix an exception thrown for request when network unconnected.
+
 ## 1.1.0
 
 ### Features
